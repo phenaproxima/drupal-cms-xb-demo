@@ -34,9 +34,11 @@
     "require": {
         "composer/installers": "^2.3",
         "cweagans/composer-patches": "^2@beta",
-        "drupal/core-composer-scaffold": "11.x-dev@dev",
         "drupal/core": "@dev",
+        "drupal/core-composer-scaffold": "11.x-dev@dev",
         "drupal/core-recommended": "11.x-dev@dev",
+        "drupal/default_content": "^2-alpha@alpha",
+        "drupal/demo_design_system": "1.0.x-dev@dev",
         "drupal/drupal_cms_olivero": "1.0.x-dev",
         "drupal/drupal_cms_starter": "^1.0.1",
         "drupal/experience_builder": "@alpha",
@@ -85,5 +87,15 @@
                 "#3511416: Integrate with the Navigation Top Bar": "https://git.drupalcode.org/project/experience_builder/-/merge_requests/760.diff"
             }
         }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "@putenv DDS_PATH=web/themes/contrib/demo_design_system",
+            "@putenv DEMO_THEME_PATH=web/themes/contrib/demo_design_system/starshot_demo",
+            "npm --prefix $DDS_PATH install",
+            "npm --prefix $DEMO_THEME_PATH install",
+            "npm --prefix $DDS_PATH run build",
+            "npm --prefix $DEMO_THEME_PATH run build"
+        ]
     }
 }
